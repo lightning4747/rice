@@ -1,0 +1,9 @@
+[General]
+ocrLanguages=afr
+
+[ImageSave]
+lastImageSaveLocation=file:///home/bow/Pictures/Screenshots/Screenshot_20260704_211521-1.png
+translatedScreenshotsFolder=Screenshots
+
+[VideoSave]
+translatedScreencastsFolder=Screencasts
