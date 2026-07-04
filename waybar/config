@@ -15,6 +15,7 @@
         "cpu",
         "memory",
         "pulseaudio",
+        "battery",
         "network",
         "clock",
         "tray",
@@ -76,7 +77,19 @@
         "format-ethernet": "󰈀 Wired",
         "format-disconnected": "󰖪 Disconnected",
         "tooltip-format": "{ifname} via {gwaddr}",
-        "on-click": "nm-connection-editor"
+        "on-click": "kitty --class nm-connection-editor nmtui"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["", "", "", "", ""]
     },
 
     "clock": {

@@ -48,4 +48,8 @@ hl.config({
             new_optimizations = true,
         },
     },
+
+    cursor = {
+        no_hardware_cursors = true,
+    },
 })

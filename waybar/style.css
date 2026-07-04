@@ -45,7 +45,7 @@ window#waybar.hidden {
     border-bottom: 3px solid #eb6f92;
 }
 
-#mode, #clock, #cpu, #memory, #pulseaudio, #network, #tray, #custom-notification {
+#mode, #clock, #cpu, #memory, #pulseaudio, #battery, #network, #tray, #custom-notification {
     padding: 0 14px;
     margin: 5px 3px;
     border-radius: 8px;
@@ -87,4 +87,16 @@ window#waybar.hidden {
     font-weight: bold;
     color: #e0def4;
     padding: 0 10px;
+}
+
+#battery {
+    color: #ea9a97; /* rose */
+}
+
+#battery.charging, #battery.plugged {
+    color: #9ccfd8; /* foam */
+}
+
+#battery.critical:not(.charging) {
+    color: #eb6f92; /* love */
 }

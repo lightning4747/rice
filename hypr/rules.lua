@@ -74,7 +74,8 @@ hl.window_rule({
 hl.window_rule({
     name = "workspace-terminals",
     match = { class = "^(kitty)$" },
-    workspace = "4"
+    workspace = "4",
+    opacity = 0.88
 })
 
 hl.window_rule({
