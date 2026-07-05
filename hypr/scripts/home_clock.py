@@ -13,6 +13,7 @@ class ClockWidget(Gtk.Window):
         self.set_decorated(False)
         self.set_app_paintable(True)
         self.set_default_size(320, 160)
+        self.set_keep_below(True)
 
         # Enable transparency/RGBA visual
         screen = self.get_screen()
