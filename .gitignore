@@ -1,5 +1,23 @@
+# IDE / Browser caches and data
 Code - OSS/
+Code/
+VSCodium/
 mozilla/
+google-chrome/
+chromium/
+
+# Sensitive CLI credentials
+gh/
+
+# KDE / System state and pairing keys
+kdeconnect/
+KDE/
+dconf/
 pulse/
 session/
+kwalletrc
+
+# Logs and temporary files
 *.log
+*~
+*.bak

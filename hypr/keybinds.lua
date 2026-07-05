@@ -11,7 +11,7 @@ hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 
 -- Legacy/alias binds
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("kitty @ --to unix:/tmp/kitty launch || kitty"))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
@@ -19,12 +19,19 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
+
+-- Resize windows with mainMod + ALT + arrow keys
+hl.bind(mainMod .. " + ALT + left",  hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + ALT + right", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + ALT + up",    hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + ALT + down",  hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]

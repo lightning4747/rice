@@ -44,8 +44,8 @@ immutability=1
 plugin=org.kde.plasma.kickoff
 
 [Containments][2][Applets][3][Configuration]
-popupHeight=509
-popupWidth=647
+popupHeight=517
+popupWidth=655
 
 [Containments][2][Applets][3][Configuration][General]
 favoritesPortedToKAstats=true
@@ -62,7 +62,7 @@ immutability=1
 plugin=org.kde.plasma.icontasks
 
 [Containments][2][Applets][5][Configuration][General]
-launchers=preferred://filemanager,applications:org.kde.konsole.desktop,preferred://browser
+launchers=applications:org.kde.konsole.desktop
 
 [Containments][2][Applets][6]
 immutability=1
