@@ -77,3 +77,11 @@ hl.window_rule({
     match = { class = "^(polkit-gnome-authentication-agent-1|org.kde.polkit-kde-authentication-agent-1|Pinentry-gtk)$" },
     float = true
 })
+
+-- Home Clock Widget (Draggable desktop clock on workspace 1)
+hl.window_rule({
+    name = "float-home-clock",
+    match = { class = "^(HomeClockWidget)$" },
+    float = true,
+    workspace = "1",
+})

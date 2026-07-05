@@ -27,7 +27,7 @@
       :text clock-date)))
 
 ; ===========================
-; Window (centered, bottom layer, non-interactive)
+; Window (normal window type for dragging)
 ; ===========================
 
 (defwindow home-widgets
@@ -38,8 +38,6 @@
     :width "320px"
     :height "160px"
     :anchor "center center")
-  :stacking "bottom"
-  :exclusive false
+  :windowtype "normal"
   :focusable false
-  :namespace "home-widgets"
   (home-clock))
