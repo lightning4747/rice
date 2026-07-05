@@ -1,0 +1,29 @@
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+}
+
+.home-clock-container {
+  padding: 32px 48px;
+  border-radius: 20px;
+
+  /* Rose Pine Moon glassmorphism */
+  background: rgba(22, 22, 36, 0.55);
+  border: 1px solid rgba(196, 167, 231, 0.20);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+}
+
+.home-time {
+  color: #e0def4;
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+
+.home-date {
+  color: #c4a7e7;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
+}
