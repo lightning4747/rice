@@ -23,7 +23,8 @@ class ClockWidget(Gtk.Window):
 
         # EventBox to capture mouse events for dragging
         event_box = Gtk.EventBox()
-        event_box.set_visible_window(False)  # Transparent event box
+        event_box.set_visible_window(True)
+        event_box.get_style_context().add_class("event-box")
         self.add(event_box)
 
         # Layout inside event_box
@@ -72,6 +73,9 @@ class ClockWidget(Gtk.Window):
             background-color: rgba(22, 22, 36, 0.55);
             border: 1px solid rgba(196, 167, 231, 0.20);
             border-radius: 20px;
+        }
+        .event-box {
+            background-color: transparent;
         }
         .time-label {
             color: #e0def4;
