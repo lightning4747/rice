@@ -52,35 +52,11 @@ hl.window_rule({
     float = true,
 })
 
--- Workspace window routing rules for development
-hl.window_rule({
-    name = "workspace-browser",
-    match = { class = "^(firefox|Brave-browser|Google-chrome|Chromium|zen-alpha|zen)$" },
-    workspace = "1"
-})
-
-hl.window_rule({
-    name = "workspace-neovim",
-    match = { class = "^(neovim|nvim)$" },
-    workspace = "2"
-})
-
-hl.window_rule({
-    name = "workspace-claude-ai",
-    match = { class = "^(claude|claude-code|ai-agent)$" },
-    workspace = "3"
-})
-
+-- Kitty transparency
 hl.window_rule({
     name = "workspace-terminals",
     match = { class = "^(kitty)$" },
     opacity = 0.88
-})
-
-hl.window_rule({
-    name = "workspace-music",
-    match = { class = "^(Spotify|spotify|amberol|audacious)$" },
-    workspace = "5"
 })
 
 -- Common utility windows should always float
