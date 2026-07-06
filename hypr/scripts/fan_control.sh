@@ -2,10 +2,16 @@
 # fan_control.sh — Adjusts fan speed and sends a notification.
 
 PWM_PATH=$(glob() { echo "$1"; }; glob /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1)
+ENABLE_PATH=$(glob() { echo "$1"; }; glob /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable)
 
 if [ ! -f "$PWM_PATH" ]; then
     notify-send -t 2000 "Fan Control" "Error: Fan control device not found!"
     exit 1
+fi
+
+# Ensure manual fan control is enabled
+if [ -f "$ENABLE_PATH" ]; then
+    echo "1" > "$ENABLE_PATH" 2>/dev/null
 fi
 
 CURRENT_VAL=$(cat "$PWM_PATH")
