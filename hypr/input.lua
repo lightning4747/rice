@@ -44,3 +44,8 @@ hl.device({
     name = "elan07c7:00-04f3:3298-mouse",
     natural_scroll = false
 })
+
+hl.device({
+    name = "elan07c7:00-04f3:3298-touchpad",
+    natural_scroll = false
+})
