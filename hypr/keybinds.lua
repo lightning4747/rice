@@ -21,6 +21,18 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("waypaper")) -- Wallpaper browser
+hl.bind("ALT + Tab", function ()
+    local active_ws = hl.get_active_workspace()
+    local next_ws = 1
+    if active_ws then
+        next_ws = active_ws.id + 1
+        if next_ws > 10 then
+            next_ws = 1
+        end
+    end
+    hl.dispatch(hl.dsp.focus({ workspace = next_ws }))
+end)
+
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
