@@ -6,7 +6,8 @@
 
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/submap"
+        "hyprland/submap",
+        "custom/sysinfo"
     ],
     "modules-center": [
         "hyprland/window"
@@ -121,5 +122,12 @@
         "on-click": "sleep 0.1 && swaync-client -t -sw",
         "on-click-right": "sleep 0.1 && swaync-client -d -sw",
         "escape": true
+    },
+
+    "custom/sysinfo": {
+        "exec": "~/.config/waybar/sys_info.sh",
+        "return-type": "json",
+        "interval": 2,
+        "tooltip": true
     }
 }

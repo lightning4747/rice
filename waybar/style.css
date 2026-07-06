@@ -45,7 +45,7 @@ window#waybar.hidden {
     border-bottom: 3px solid #eb6f92;
 }
 
-#mode, #clock, #cpu, #memory, #pulseaudio, #battery, #network, #tray, #custom-notification {
+#mode, #clock, #cpu, #memory, #pulseaudio, #battery, #network, #tray, #custom-notification, #custom-sysinfo {
     padding: 0 14px;
     margin: 5px 3px;
     border-radius: 8px;
