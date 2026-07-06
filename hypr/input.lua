@@ -34,3 +34,13 @@ hl.device({
     name        = "epic-mouse-v1",
     sensitivity = -0.5,
 })
+
+hl.device({
+    name = "usb-optical-mouse-",
+    natural_scroll = true
+})
+
+hl.device({
+    name = "elan07c7:00-04f3:3298-mouse",
+    natural_scroll = true
+})
