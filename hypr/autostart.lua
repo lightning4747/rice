@@ -13,7 +13,7 @@ hl.on("hyprland.start", function ()
     -- Custom draggable clock widget on workspace 1
     hl.exec_cmd("python ~/.config/hypr/scripts/home_clock.py")
     hl.exec_cmd("hypridle")
-    -- Ensure standard scrolling is enabled globally in GTK/GNOME applications
-    hl.exec_cmd("gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false")
-    hl.exec_cmd("gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false")
+    -- Ensure standard scrolling is enabled globally in GTK/GNOME applications with a delay to prevent overrides
+    hl.exec_cmd("sleep 5 && gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false")
+    hl.exec_cmd("sleep 5 && gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false")
 end)
