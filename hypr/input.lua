@@ -17,7 +17,7 @@ hl.config({
         natural_scroll = false,
 
         touchpad = {
-            natural_scroll = false,
+            natural_scroll = true,
         },
     },
 })
@@ -47,5 +47,5 @@ hl.device({
 
 hl.device({
     name = "elan07c7:00-04f3:3298-touchpad",
-    natural_scroll = false
+    natural_scroll = true
 })
