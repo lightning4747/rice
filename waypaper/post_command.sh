@@ -12,9 +12,29 @@ fi
 BACKEND=$(grep -E "^backend\s*=" "$CONFIG_FILE" | cut -d'=' -f2 | tr -d '[:space:]')
 
 if [ "$BACKEND" = "mpvpaper" ]; then
-    # Kill awww daemon so it doesn't overlap the video
+    # Kill other daemons
     pkill -f awww-daemon
     pkill -x hyprpaper
+
+    # Detect if it's a video file and check resolution
+    if [ -f "$WALLPAPER" ]; then
+        # Check dimensions using ffprobe
+        DIMENSIONS=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$WALLPAPER" 2>/dev/null)
+        if [ ! -z "$DIMENSIONS" ]; then
+            WIDTH=$(echo "$DIMENSIONS" | cut -d'x' -f1)
+            HEIGHT=$(echo "$DIMENSIONS" | cut -d'x' -f2)
+            
+            ROTATION_ARG=""
+            if [ -n "$WIDTH" ] && [ -n "$HEIGHT" ] && [ "$WIDTH" -lt "$HEIGHT" ]; then
+                # Video is vertical, rotate it 90 degrees to make it horizontal (16:9)
+                ROTATION_ARG="--video-rotate=90"
+            fi
+            
+            # Restart mpvpaper with the proper rotation and loop settings
+            pkill -x mpvpaper
+            mpvpaper -o "no-audio --loop-file=inf $ROTATION_ARG" "*" "$WALLPAPER" &
+        fi
+    fi
 elif [ "$BACKEND" = "awww" ]; then
     # Kill mpvpaper so the static wallpaper is shown
     pkill -x mpvpaper
