@@ -8,7 +8,7 @@
 @define-color rp_secondary #9ccfd8;
 @define-color rp_error #eb6f92;
 
-/* 1. Window Background & Opacity */
+/* 1. Window Background & Extreme Transparency/Blur Compatibility */
 /* Make the top-level GTK window transparent */
 window:has(songcover),
 window:has(playbackcontrol) {
@@ -18,36 +18,47 @@ window:has(playbackcontrol) {
   border: none !important;
 }
 
-/* Make the window decoration and main background translucent Rose Pine Moon base */
+/* Apply 40% translucent Rose Pine Moon base to the decoration / background to support Hyprland blur */
 window:has(songcover) > decoration,
 window:has(songcover) > decoration-overlay,
 window:has(songcover) .background {
-  background-color: rgba(35, 33, 54, 0.92) !important;
-  background: rgba(35, 33, 54, 0.92) !important;
+  background-color: rgba(35, 33, 54, 0.4) !important;
+  background: rgba(35, 33, 54, 0.4) !important;
   border-radius: 16px !important;
   box-shadow: none !important;
   border: none !important;
 }
 
-/* Remove default dynamic linear gradients on the main player area so Rose Pine Moon base shows */
-.main-window {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* Sidebar/Playlist view - Rose Pine Moon Surface with 85% opacity */
-playlistview {
-  background-color: rgba(42, 39, 63, 0.85) !important;
-  background: rgba(42, 39, 63, 0.85) !important;
-  border: none !important;
-}
-
-/* Initial view status page transparency */
-statuspage,
-.drag-overlay-status-page {
-  background: transparent !important;
+/* Force all intermediate containers to be fully transparent so the blurred background shows through */
+window:has(songcover) windowhandle,
+window:has(songcover) dragoverlay,
+window:has(songcover) toastoverlay,
+window:has(songcover) stack,
+window:has(songcover) splitview,
+window:has(songcover) splitview > widget.background,
+window:has(songcover) toolbarview,
+window:has(songcover) toolbarview > widget.background,
+window:has(songcover) clamp,
+window:has(songcover) box,
+window:has(songcover) .main-window,
+window:has(songcover) statuspage,
+window:has(songcover) .drag-overlay-status-page,
+window:has(songcover) headerbar,
+window:has(songcover) actionbar,
+window:has(songcover) .navigation-sidebar {
   background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Sidebar/Playlist view - Slightly distinct translucent Rose Pine Moon Surface (45% opacity) */
+window:has(songcover) playlistview,
+window:has(songcover) playlistview > toolbarview,
+window:has(songcover) playlistview > toolbarview > widget.background {
+  background-color: rgba(42, 39, 63, 0.45) !important;
+  background: rgba(42, 39, 63, 0.45) !important;
+  border: none !important;
 }
 
 /* 2. Spacing & Padding */
@@ -96,21 +107,22 @@ songdetails label.song-album {
 songcover picture.cover,
 songcover image.card {
   border-radius: 16px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border: 1px solid rgba(196, 167, 231, 0.35) !important; /* Thin Iris border */
   margin: 12px !important;
+  background-color: rgba(42, 39, 63, 0.8) !important;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
 songcover picture.cover:hover,
 songcover image.card:hover {
   transform: scale(1.03) !important;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* 4. Playback Controls */
 playbackcontrol button.circular {
-  background-color: @rp_overlay !important;
+  background-color: rgba(57, 53, 82, 0.6) !important;
   color: @rp_text !important;
   border: none !important;
   box-shadow: none !important;
@@ -132,7 +144,7 @@ playbackcontrol button.circular:active {
 
 /* Checked/Active state for shuffle, repeat, playlist buttons */
 playbackcontrol button.circular:checked {
-  background-color: rgba(196, 167, 231, 0.25) !important; /* Translucent Iris */
+  background-color: rgba(196, 167, 231, 0.25) !important;
   color: @rp_accent !important;
   border: 1px solid rgba(196, 167, 231, 0.4) !important;
 }
@@ -167,7 +179,7 @@ waveformview {
 
 /* Volume Slider */
 volume scale trough {
-  background-color: @rp_overlay !important;
+  background-color: rgba(57, 53, 82, 0.6) !important;
   border-radius: 9999px !important;
   min-height: 6px !important;
   border: none !important;
@@ -193,19 +205,7 @@ volume scale trough slider:hover {
   transform: scale(1.25) !important;
 }
 
-/* 6. Headerbar & Borders */
-window:has(songcover) headerbar {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  min-height: 48px !important;
-}
-
-window:has(songcover) headerbar > windowhandle {
-  background: transparent !important;
-}
-
+/* 6. Separation & Borders Cleanup */
 /* Remove all harsh separators and borders */
 window:has(songcover) separator,
 window:has(songcover) splitview > separator,
@@ -226,11 +226,11 @@ listview.navigation-sidebar row {
 }
 
 listview.navigation-sidebar row:hover {
-  background-color: rgba(57, 53, 82, 0.4) !important; /* Overlay 40% */
+  background-color: rgba(57, 53, 82, 0.3) !important;
 }
 
 listview.navigation-sidebar row:selected {
-  background-color: rgba(196, 167, 231, 0.2) !important; /* Iris 20% */
+  background-color: rgba(196, 167, 231, 0.2) !important;
   color: @rp_accent !important;
   outline: none !important;
 }
