@@ -22,7 +22,7 @@ window:has(playbackcontrol) {
 window:has(songcover) > decoration,
 window:has(songcover) > decoration-overlay,
 window:has(songcover) .background {
-  background-color: rgba(35, 33, 54, 0.4) !important;
+  background-color: rgba(35, 33, 54, 0.2) !important;
   background: rgba(35, 33, 54, 0.4) !important;
   border-radius: 16px !important;
   box-shadow: none !important;
