@@ -52,17 +52,16 @@ LOCK_FILE="/tmp/fan_control.lock"
 
     # Write the new value
     echo "$NEW_VAL" > "$PWM_PATH" 2>/dev/null
+    WRITE_OK=$?
 
     # Calculate percentage
     PCT=$(( NEW_VAL * 100 / 255 ))
 
     # Run notify-send in background (&) to prevent blocking the lock release
-    if [ $? -eq 0 ]; then
+    if [ $WRITE_OK -eq 0 ]; then
         notify-send -r 9991 -t 1500 -i kcmthermal "Fan Control" "Speed: ${PCT}% (${NEW_VAL}/255)" &
     else
-        # Fallback to sudo if permission is not set up yet
-        sudo sh -c "echo $NEW_VAL > $PWM_PATH"
-        notify-send -r 9991 -t 1500 -i kcmthermal "Fan Control" "Speed: ${PCT}% (${NEW_VAL}/255) [sudo]" &
+        notify-send -r 9991 -t 1500 -i dialog-error "Fan Control" "Error: Write failed. Run ~/setup_fan_rules.sh" &
     fi
 
 ) 200>"$LOCK_FILE"
