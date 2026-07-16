@@ -69,23 +69,26 @@ TARGET_FILE="/tmp/fan_target_val"
     # Spawn the new debounced timer (sleep 2 seconds before writing to hardware)
     (
         sleep 2
-        TARGET=$(cat "$TARGET_FILE" 2>/dev/null)
-        if [ -n "$TARGET" ]; then
-            # Ensure manual fan control is enabled
-            if [ -f "$ENABLE_PATH" ]; then
-                echo "1" > "$ENABLE_PATH" 2>/dev/null
+        (
+            flock -x 200
+            TARGET=$(cat "$TARGET_FILE" 2>/dev/null)
+            if [ -n "$TARGET" ]; then
+                # Ensure manual fan control is enabled
+                if [ -f "$ENABLE_PATH" ]; then
+                    echo "1" > "$ENABLE_PATH" 2>/dev/null
+                fi
+                # Write target value to hardware sysfs node
+                echo "$TARGET" > "$PWM_PATH" 2>/dev/null
+                if [ $? -ne 0 ]; then
+                    notify-send -r 9991 -t 1500 -i dialog-error "Fan Control" "Error: Write failed. Run ~/setup_fan_rules.sh" &
+                fi
+                # Clean up target state file
+                rm -f "$TARGET_FILE"
             fi
-            # Write target value to hardware sysfs node
-            echo "$TARGET" > "$PWM_PATH" 2>/dev/null
-            if [ $? -ne 0 ]; then
-                notify-send -r 9991 -t 1500 -i dialog-error "Fan Control" "Error: Write failed. Run ~/setup_fan_rules.sh" &
-            fi
-            # Clean up target state file
-            rm -f "$TARGET_FILE"
-        fi
-        # Clean up PID file
-        rm -f "$PID_FILE"
-    ) >/dev/null 2>&1 &
+            # Clean up PID file
+            rm -f "$PID_FILE"
+        ) 200>"$LOCK_FILE"
+    ) >/dev/null 2>&1 200>&- &
     echo "$!" > "$PID_FILE"
     disown
 
