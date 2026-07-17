@@ -58,3 +58,10 @@ mpd/database
 mpd/log
 mpd/state
 mpd/sticker.sql
+
+# PipeWire / WirePlumber audio config overrides
+!pipewire/
+!pipewire/**
+
+!wireplumber/
+!wireplumber/**
