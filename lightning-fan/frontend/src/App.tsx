@@ -244,13 +244,13 @@ function App() {
             <ResponsiveContainer width="100%" height={160}>
               <LineChart data={tempHistory}>
                 <XAxis dataKey="time" hide />
-                <YAxis domain={[30, 95]} width={25} stroke="#908caa" />
+                <YAxis domain={[30, 95]} width={25} stroke="#888888" />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: "#2a273f", border: "1px solid #393552", borderRadius: "8px" }}
-                  labelStyle={{ color: "#e0def4" }}
+                  contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333333", borderRadius: "4px" }}
+                  labelStyle={{ color: "#ffffff" }}
                 />
-                <Line type="monotone" dataKey="CPU" stroke="#eb6f92" strokeWidth={2} dot={false} isAnimationActive={false} />
-                <Line type="monotone" dataKey="GPU" stroke="#c4a7e7" strokeWidth={2} dot={false} isAnimationActive={false} />
+                <Line type="monotone" dataKey="CPU" stroke="#ffffff" strokeWidth={2} dot={false} isAnimationActive={false} />
+                <Line type="monotone" dataKey="GPU" stroke="#888888" strokeDasharray="4 4" strokeWidth={2} dot={false} isAnimationActive={false} />
               </LineChart>
             </ResponsiveContainer>
             <div className="graph-legend">

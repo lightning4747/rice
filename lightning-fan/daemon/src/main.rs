@@ -298,25 +298,6 @@ async fn main() {
 
     println!("Unix socket listening at {:?}", socket_path);
 
-    // Spawn Watchdog Timer
-    let state_wd = Arc::clone(&state);
-    tokio::spawn(async move {
-        loop {
-            tokio::time::sleep(Duration::from_secs(1)).await;
-            let mut s = state_wd.lock().await;
-
-            let now = Instant::now();
-            let elapsed = now.duration_since(s.last_heartbeat).as_secs();
-
-            // Under Manual or Curve mode, if heartbeat is missed for 10s, restore Auto mode
-            if s.mode != FanMode::Auto && elapsed >= 10 {
-                println!("Watchdog: Heartbeat missed for {}s. Restoring auto control.", elapsed);
-                audit_log(&format!("Watchdog: Timeout ({}s), reverting to Auto", elapsed));
-                let _ = write_hardware_fan(&mut s, false, 0);
-                s.mode = FanMode::Auto;
-            }
-        }
-    });
 
     // Spawn Thermal Loop (1 second interval) to apply curves and read telemetry
     let state_thermal = Arc::clone(&state);

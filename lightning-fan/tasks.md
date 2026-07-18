@@ -1,38 +1,21 @@
-# Lightning Fan — Implementation Tasks
+# Lightning Fan — Audit & Refinement Tasks
 
-Tasks to implement the `lightning-fan` custom fan control system.
+Tasks to resolve the current issues and implement the requested features.
 
-## Phase 1: Environment & Setup
-- [ ] Verify Rust (`cargo`/`rustc`) is fully installed and in the user's `PATH`.
-- [ ] Initialize Tauri app structure in `/home/bow/.config/lightning-fan/`.
-- [ ] Set up project structure: `daemon/` for the Rust background service, and `frontend/` for the Tauri UI.
+## Phase 1: Resetting Problem (WATCHDOG REVISION)
+- [x] Remove/disable client heartbeat watchdog timer in the daemon so that the manual fan speed or curve persists when the GUI is closed.
+- [x] Keep the daemon's SIGINT/SIGTERM handlers intact to safely revert to BIOS Auto control (mode 2) when the daemon service itself is stopped.
+- [x] Recompile daemon and restart `lightning-faud` service.
+- [x] Verify that closing the Tauri UI application does NOT drop the fan speed to 0 RPM/Auto mode.
 
-## Phase 2: Daemon MVP (`lightning-faud`)
-- [ ] Write Rust daemon core to parse `/sys/class/hwmon/hwmon*` name files and locate the `hp` and `k10temp` controllers.
-- [ ] Implement read-only CPU/GPU RPM and CPU/GPU temperatures polling logic.
-- [ ] Implement Unix domain socket listener at `/run/user/1000/lightning-fan.sock` to broadcast JSON telemetry.
+## Phase 2: Theme Refinement (BLACK & WHITE UI)
+- [x] Redesign React frontend styling in `App.css` and `App.tsx` to use a clean grayscale (black/white/gray) color palette.
+- [x] Restructure card layouts, sliders, and borders to look less "vibe-coded" (clean borders, crisp margins, no heavy gradients/glows).
+- [x] Retain colored indicators/accents ONLY for functional status icons (e.g. CPU temp = rose/red, GPU temp = purple/blue, Fan spinning = teal, connection badge).
+- [x] Rebuild Tauri frontend application.
 
-## Phase 3: Daemon Safety Layer & Write Control
-- [ ] Implement `pwm1` and `pwm1_enable` write controls with safe clamping (floor: `12`, ceiling: `255`).
-- [ ] Implement rate-limiter / debounce (minimum 1 second between EC writes).
-- [ ] Implement SIGINT/SIGTERM handlers to reset `pwm1_enable` to `0` (restoring auto/firmware fan control) on shutdown.
-- [ ] Implement client watchdog / dead-man switch (resets to auto mode if heartbeat is missed for 10 seconds).
-- [ ] Implement rotating audit log to `~/.local/share/lightning-fan/audit.log`.
-
-## Phase 4: Frontend Development (React + Tailwind CSS + Vite)
-- [ ] Scaffold Tauri React/TS frontend.
-- [ ] Design sliders for CPU/GPU target speed (percentage to PWM translation).
-- [ ] Design live telemetry graph displaying CPU & GPU temperatures over a rolling 5-minute window.
-- [ ] Integrate Unix Domain Socket connection using Tauri's sidecar/custom IPC commands.
-- [ ] Implement client-side debounce (300-500ms) on slider movements.
-- [ ] Implement the 5-second heartbeat sender to keep the daemon active.
-
-## Phase 5: Fan Curves Editor
-- [ ] Design interactive curve editor UI (drag-and-drop or point-adjust table) mapping temp (°C) to speed (%).
-- [ ] Implement daemon-side curve execution (evaluates fan speed based on current max temperature and active curve points).
-- [ ] Persist user curve profiles to `~/.config/lightning-fan/profiles.json`.
-
-## Phase 6: Packaging & Integration
-- [ ] Create `lightning-faud.service` user systemd unit.
-- [ ] Add PKGBUILD/installer scripts for easy installation.
-- [ ] Verify complete cleanup on uninstall.
+## Phase 3: Desktop Integration & Shortcuts (LAUNCHER & CLI)
+- [x] Create a shell script named `fan` in `/home/bow/.local/bin/fan` to launch the Tauri frontend app.
+- [x] Make the script executable.
+- [x] Create a desktop entry file `/home/bow/.local/share/applications/lightning-fan.desktop` to make the application show up in the application launcher (Super + d).
+- [x] Verify desktop integration and CLI command access.
